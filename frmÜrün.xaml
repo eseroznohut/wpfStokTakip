@@ -1,0 +1,75 @@
+﻿<libs:WindowViewBase x:Class="WpfStokTakip2011.frmÜrün"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="frmÜrün" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:libs="clr-namespace:WpfStokTakip2011.Libs"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:my="clr-namespace:WpfStokTakip2011" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" 
+                     Height="428" Width="461" Background="#FFF3F7FD" >
+
+    <StackPanel>
+        <Border BorderThickness="1" BorderBrush="#FF396CDE" CornerRadius="3" Margin="10,15,10,10" Background="White">
+        <Grid Name="grid1" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />               
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="40*" />
+            </Grid.RowDefinitions>
+            <Label Content="Ürün Id:" Grid.Column="0" Grid.Row="0" Margin="2" Height="24" />
+            <Label Grid.Column="1" Name="ürünIdTextBox" Content="{Binding Path=ÜrünId, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true}" Margin="2" Height="24" />
+            <Label Content="Barkod No:" Grid.Column="0" Grid.Row="1" Margin="2" Height="24" />
+            <TextBox Grid.Column="1" Grid.Row="1" Name="barkodNoTextBox" Text="{Binding Path=BarkodNo, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" Margin="2" Height="24" CharacterCasing="Upper" PreviewKeyDown="barkodNoTextBox_PreviewKeyDown" />
+            <Label Content="Ürün Adı:" Grid.Column="0" Grid.Row="2" Margin="2" Height="24" />
+            <TextBox Grid.Column="1" Grid.Row="2" Name="ürünAdıTextBox" Text="{Binding Path=ÜrünAdı, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" Margin="2" Height="24" CharacterCasing="Upper" />
+            <Label Content="Alış Fiyat:" Grid.Column="0" Grid.Row="3" Margin="2" Height="24" />
+            <TextBox Grid.Column="1" Grid.Row="3" Name="alışFiyatTextBox" Text="{Binding Path=AlışFiyat, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" Margin="2" Height="24" CharacterCasing="Upper" />
+            <Label Content="Satış Fiyat:" Grid.Column="0" Grid.Row="4" Margin="2" Height="24" />
+            <TextBox Grid.Column="1" Grid.Row="4" Name="satışFiyatTextBox" Text="{Binding Path=SatışFiyat, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" Margin="2" Height="24" CharacterCasing="Upper" />
+            <Label Content="Fiyat Güncelleme Tarihi:" Grid.Column="0" Grid.Row="5" Margin="2" Height="24" />
+            <DatePicker Grid.Column="1" Grid.Row="5" SelectedDate="{Binding Path=FiyatGüncellemeTarihi, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" Margin="2" Height="24" />
+            <Label Content="Birim:" Grid.Column="0" Grid.Row="6" Margin="2" Height="24" />
+           
+            <ComboBox Grid.Column="1" Grid.Row="6" Name="birimTextBox" 
+                      Text="{Binding Path=Birim, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" 
+                      ItemsSource="{Binding}" 
+                      SelectedValuePath="BirimAdı" DisplayMemberPath="BirimAdı" Margin="2" Height="24" />
+            
+            <Label Content="Kategori:" Grid.Column="0" Grid.Row="7" Margin="2" Height="24" />
+            <ComboBox Grid.Column="1" Grid.Row="7" Name="kategoriTextBox" 
+                      Text="{Binding Path=Kategori, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" 
+                      SelectedValuePath="Kategori" DisplayMemberPath="Kategori" Margin="2" Height="24" 
+                      ItemsSource="{Binding}" />
+            
+            <Label Content="Kalan Miktar:" Grid.Column="0" Grid.Row="8" Margin="2" Height="24" />
+            <TextBox Grid.Column="1" Grid.Row="8" Name="kalanMiktarTextBox" Text="{Binding Path=KalanMiktar, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" Margin="2" Height="24" CharacterCasing="Upper" />
+            <Label Content="Min Seviye:" Grid.Column="0" Grid.Row="9" Margin="2" Height="24" />
+            <TextBox Grid.Column="1" Grid.Row="9" Name="minSeviyeTextBox" Text="{Binding Path=MinSeviye, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" Margin="2" Height="24" CharacterCasing="Upper" />
+            <Label Content="Max Seviye:" Grid.Column="0" Grid.Row="10" Margin="2" Height="24" />
+            <TextBox Grid.Column="1" Grid.Row="10" Name="maxSeviyeTextBox" Text="{Binding Path=MaxSeviye, Mode=TwoWay, ValidatesOnExceptions=true, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" Margin="2" Height="24" CharacterCasing="Upper" />
+            </Grid>
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button Content="Kapat" Margin="0,10,91,12" Name="button1" Click="button1_Click" IsDefault="True" IsEnabled="{Binding UygunMu}" HorizontalAlignment="Right" Width="75" Height="25" />
+            <Button Content="İptal" HorizontalAlignment="Right" Margin="0,10,10,12" Name="button2" Width="75" IsCancel="True" Height="25" />
+
+        </Grid>
+        
+    </StackPanel>
+</libs:WindowViewBase>

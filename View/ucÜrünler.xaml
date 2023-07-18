@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="WpfStokTakip2011.View.ucÜrünler"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:my="clr-namespace:WpfStokTakip2011" Loaded="Window_Loaded"
+        IsEnabled="True" IsManipulationEnabled="True" d:DesignHeight="279" d:DesignWidth="620">
+
+    <UserControl.Resources>
+    </UserControl.Resources>
+    <DockPanel LastChildFill="True">
+        <ToolBarTray DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <ToolBar  Name="menu1" ToolBar.OverflowMode="Always" Width="Auto" >
+            <Button Content="Yeni" Width="50" Click="Button_Click_1" />
+            <Button Content="Sil" Width="50" Click="Button_Click_2" />
+            <Button Content="Yükle" Width="50" Click="Button_Click_3" />
+            <Label x:Name="lblYükle" Content="" Width="200" />
+
+            <TextBox Text="" Width="150" Name="txtAra" TextChanged="txtAra_TextChanged" CharacterCasing="Upper" />
+            </ToolBar>
+            </ToolBarTray>
+        <DataGrid AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Name="DataGrid1" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionUnit="FullRow" AlternatingRowBackground="#FFF2F2F2"  MouseDoubleClick="DataGrid1_MouseDoubleClick" IsSynchronizedWithCurrentItem="True" BorderBrush="#FFC2CCDB" HorizontalGridLinesBrush="#FFC2CCDB" VerticalGridLinesBrush="#FFC2CCDB" RowHeaderWidth="20">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="barkodNoColumn" Binding="{Binding Path=BarkodNo}" Header="Barkod No" Width="1*" />
+                <DataGridTextColumn  x:Name="ürünAdıColumn" Binding="{Binding Path=ÜrünAdı,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}" Header="Ürün Adı" Width="3*" />
+                
+                <DataGridTextColumn x:Name="alışFiyat" Binding="{Binding Path=AlışFiyat}" Header="Alış Fiyat" Width="1*" />
+                <DataGridTextColumn x:Name="satışFiyat" Binding="{Binding Path=SatışFiyat}" Header="Satış Fiyat" Width="1*" />
+                
+                <DataGridComboBoxColumn x:Name="birimColum"  Header="Birim" Width="2*" 
+                                        DisplayMemberPath="BirimAdı" 
+                                        SelectedValuePath="BirimAdı" 
+                                        SelectedValueBinding="{Binding Birim}" />
+
+
+                <DataGridComboBoxColumn x:Name="kategoriColumn"  Header="Kategori" Width="2*"
+                                        DisplayMemberPath="Kategori" 
+                                        SelectedValuePath="Kategori" 
+                                        SelectedValueBinding="{Binding Kategori}" />
+                
+                <DataGridTextColumn x:Name="kalanMiktarColumn" Binding="{Binding Path=KalanMiktar}" Header="Kalan Miktar" Width="SizeToHeader" />
+                <DataGridTextColumn x:Name="minSeviyeColumn" Binding="{Binding Path=MinSeviye}" Header="Min Seviye" Width="SizeToHeader" />
+                <DataGridTextColumn x:Name="maxSeviyeColumn" Binding="{Binding Path=MaxSeviye}" Header="Max Seviye" Width="SizeToHeader" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StokTakip2011Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="StokTakip2011ModelStoreContainer">
+          <EntitySet Name="Birim" EntityType="StokTakip2011Model.Store.Birim" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FirmaTanım" EntityType="StokTakip2011Model.Store.FirmaTanım" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Fiş" EntityType="StokTakip2011Model.Store.Fiş" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Kullanıcı" EntityType="StokTakip2011Model.Store.Kullanıcı" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="StokHareket" EntityType="StokTakip2011Model.Store.StokHareket" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ÜrünKategori" EntityType="StokTakip2011Model.Store.ÜrünKategori" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ürünler" EntityType="StokTakip2011Model.Store.Ürünler" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_StokHareket_Fiş1" Association="StokTakip2011Model.Store.FK_StokHareket_Fiş1">
+            <End Role="Fiş" EntitySet="Fiş" />
+            <End Role="StokHareket" EntitySet="StokHareket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StokHareket_Ürünler" Association="StokTakip2011Model.Store.FK_StokHareket_Ürünler">
+            <End Role="Ürünler" EntitySet="Ürünler" />
+            <End Role="StokHareket" EntitySet="StokHareket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ürünler_Birim" Association="StokTakip2011Model.Store.FK_Ürünler_Birim">
+            <End Role="Birim" EntitySet="Birim" />
+            <End Role="Ürünler" EntitySet="Ürünler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ürünler_ÜrünKategori" Association="StokTakip2011Model.Store.FK_Ürünler_ÜrünKategori">
+            <End Role="ÜrünKategori" EntitySet="ÜrünKategori" />
+            <End Role="Ürünler" EntitySet="Ürünler" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Birim">
+          <Key>
+            <PropertyRef Name="BirimAdı" />
+          </Key>
+          <Property Name="BirimAdı" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="id" Type="int" />
+        </EntityType>
+        <EntityType Name="FirmaTanım">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="FirmaAdı" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Fiş">
+          <Key>
+            <PropertyRef Name="FişId" />
+          </Key>
+          <Property Name="FişId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FişTarihi" Type="smalldatetime" />
+          <Property Name="ÖdemeTipi" Type="varchar" MaxLength="50" />
+          <Property Name="ToplamTutar" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="AlınanTutar" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="CariId" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kullanıcı">
+          <Key>
+            <PropertyRef Name="KullanıcıTc" />
+          </Key>
+          <Property Name="KullanıcıTc" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="KullanıcıAdı" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Parola" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ParolaHatırlatmaSoru" Type="varbinary" MaxLength="50" />
+          <Property Name="ParolaCevap" Type="varbinary" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="StokHareket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FişId" Type="int" Nullable="false" />
+          <Property Name="ÜrünId" Type="int" Nullable="false" />
+          <Property Name="Miktar" Type="float" Nullable="false" />
+          <Property Name="GÇ_Tipi" Type="varchar" Nullable="false" MaxLength="1" />
+          <Property Name="Tarih" Type="smalldatetime" Nullable="false" />
+          <Property Name="KullanıcıTc" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="AlışFiyat" Type="decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="SatışFiyat" Type="decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="ToplamAlışTutar" Type="decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="ToplamSatışTutar" Type="decimal" Nullable="false" Precision="6" Scale="2" />
+        </EntityType>
+        <EntityType Name="ÜrünKategori">
+          <Key>
+            <PropertyRef Name="Kategori" />
+          </Key>
+          <Property Name="Kategori" Type="varchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Ürünler">
+          <Key>
+            <PropertyRef Name="ÜrünId" />
+          </Key>
+          <Property Name="ÜrünId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BarkodNo" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ÜrünAdı" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="AlışFiyat" Type="decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="SatışFiyat" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="FiyatGüncellemeTarihi" Type="smalldatetime" />
+          <Property Name="Birim" Type="varchar" MaxLength="20" />
+          <Property Name="Kategori" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="KalanMiktar" Type="float" Nullable="false" />
+          <Property Name="MinSeviye" Type="int" Nullable="false" />
+          <Property Name="MaxSeviye" Type="int" Nullable="false" />
+          <Property Name="Güncelleyen" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_StokHareket_Fiş1">
+          <End Role="Fiş" Type="StokTakip2011Model.Store.Fiş" Multiplicity="1" />
+          <End Role="StokHareket" Type="StokTakip2011Model.Store.StokHareket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fiş">
+              <PropertyRef Name="FişId" />
+            </Principal>
+            <Dependent Role="StokHareket">
+              <PropertyRef Name="FişId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StokHareket_Ürünler">
+          <End Role="Ürünler" Type="StokTakip2011Model.Store.Ürünler" Multiplicity="1" />
+          <End Role="StokHareket" Type="StokTakip2011Model.Store.StokHareket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ürünler">
+              <PropertyRef Name="ÜrünId" />
+            </Principal>
+            <Dependent Role="StokHareket">
+              <PropertyRef Name="ÜrünId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ürünler_Birim">
+          <End Role="Birim" Type="StokTakip2011Model.Store.Birim" Multiplicity="0..1" />
+          <End Role="Ürünler" Type="StokTakip2011Model.Store.Ürünler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Birim">
+              <PropertyRef Name="BirimAdı" />
+            </Principal>
+            <Dependent Role="Ürünler">
+              <PropertyRef Name="Birim" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ürünler_ÜrünKategori">
+          <End Role="ÜrünKategori" Type="StokTakip2011Model.Store.ÜrünKategori" Multiplicity="1" />
+          <End Role="Ürünler" Type="StokTakip2011Model.Store.Ürünler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ÜrünKategori">
+              <PropertyRef Name="Kategori" />
+            </Principal>
+            <Dependent Role="Ürünler">
+              <PropertyRef Name="Kategori" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StokTakip2011Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="StokTakip2011Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Birim" EntityType="StokTakip2011Model.Birim" />
+          <EntitySet Name="FirmaTanım" EntityType="StokTakip2011Model.FirmaTanım" />
+          <EntitySet Name="Kullanıcı" EntityType="StokTakip2011Model.Kullanıcı" />
+          <EntitySet Name="ÜrünKategori" EntityType="StokTakip2011Model.ÜrünKategori" />
+          <EntitySet Name="Ürünler" EntityType="StokTakip2011Model.Ürünler" />
+          <AssociationSet Name="FK_Ürünler_Birim" Association="StokTakip2011Model.FK_Ürünler_Birim">
+            <End Role="Birim" EntitySet="Birim" />
+            <End Role="Ürünler" EntitySet="Ürünler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ürünler_ÜrünKategori" Association="StokTakip2011Model.FK_Ürünler_ÜrünKategori">
+            <End Role="ÜrünKategori" EntitySet="ÜrünKategori" />
+            <End Role="Ürünler" EntitySet="Ürünler" />
+          </AssociationSet>
+          <EntitySet Name="Fiş" EntityType="StokTakip2011Model.Fiş" />
+          <EntitySet Name="StokHareket" EntityType="StokTakip2011Model.StokHareket" />
+          <AssociationSet Name="FK_StokHareket_Fiş1" Association="StokTakip2011Model.FK_StokHareket_Fiş1">
+            <End Role="Fiş" EntitySet="Fiş" />
+            <End Role="StokHareket" EntitySet="StokHareket" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StokHareket_Ürünler" Association="StokTakip2011Model.FK_StokHareket_Ürünler">
+            <End Role="Ürünler" EntitySet="Ürünler" />
+            <End Role="StokHareket" EntitySet="StokHareket" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Birim">
+          <Key>
+            <PropertyRef Name="BirimAdı" />
+          </Key>
+          <Property Name="BirimAdı" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="id" Type="Int32" />
+          <NavigationProperty Name="Ürünler" Relationship="StokTakip2011Model.FK_Ürünler_Birim" FromRole="Birim" ToRole="Ürünler" />
+        </EntityType>
+        <EntityType Name="FirmaTanım">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="FirmaAdı" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Kullanıcı">
+          <Key>
+            <PropertyRef Name="KullanıcıTc" />
+          </Key>
+          <Property Name="KullanıcıTc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullanıcıAdı" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Parola" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ParolaHatırlatmaSoru" Type="Binary" Nullable="false" MaxLength="50" FixedLength="false" />
+          <Property Name="ParolaCevap" Type="Binary" Nullable="false" MaxLength="50" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ÜrünKategori">
+          <Key>
+            <PropertyRef Name="Kategori" />
+          </Key>
+          <Property Name="Kategori" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Ürünler" Relationship="StokTakip2011Model.FK_Ürünler_ÜrünKategori" FromRole="ÜrünKategori" ToRole="Ürünler" />
+        </EntityType>
+        <EntityType Name="Ürünler">
+          <Key>
+            <PropertyRef Name="ÜrünId" />
+          </Key>
+          <Property Type="Int32" Name="ÜrünId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="BarkodNo" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ÜrünAdı" Nullable="false" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="AlışFiyat" Nullable="false" Precision="6" Scale="2" />
+          <Property Type="Decimal" Name="SatışFiyat" Nullable="false" Precision="6" Scale="2" />
+          <Property Type="DateTime" Name="FiyatGüncellemeTarihi" />
+          <Property Type="String" Name="Birim" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Kategori" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="KalanMiktar" Nullable="false" />
+          <Property Type="Int32" Name="MinSeviye" Nullable="false" />
+          <Property Type="Int32" Name="MaxSeviye" Nullable="false" />
+          <Property Type="String" Name="Güncelleyen" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Birim1" Relationship="StokTakip2011Model.FK_Ürünler_Birim" FromRole="Ürünler" ToRole="Birim" />
+          <NavigationProperty Name="ÜrünKategori" Relationship="StokTakip2011Model.FK_Ürünler_ÜrünKategori" FromRole="Ürünler" ToRole="ÜrünKategori" />
+          <NavigationProperty Name="StokHareket" Relationship="StokTakip2011Model.FK_StokHareket_Ürünler" FromRole="Ürünler" ToRole="StokHareket" />
+        </EntityType>
+        <Association Name="FK_Ürünler_Birim">
+          <End Type="StokTakip2011Model.Birim" Role="Birim" Multiplicity="1" />
+          <End Type="StokTakip2011Model.Ürünler" Role="Ürünler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Birim">
+              <PropertyRef Name="BirimAdı" />
+            </Principal>
+            <Dependent Role="Ürünler">
+              <PropertyRef Name="Birim" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ürünler_ÜrünKategori">
+          <End Type="StokTakip2011Model.ÜrünKategori" Role="ÜrünKategori" Multiplicity="1" />
+          <End Type="StokTakip2011Model.Ürünler" Role="Ürünler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ÜrünKategori">
+              <PropertyRef Name="Kategori" />
+            </Principal>
+            <Dependent Role="Ürünler">
+              <PropertyRef Name="Kategori" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Fiş">
+          <Key>
+            <PropertyRef Name="FişId" />
+          </Key>
+          <Property Type="Int32" Name="FişId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="FişTarihi" />
+          <Property Type="String" Name="ÖdemeTipi" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="ToplamTutar" Precision="6" Scale="2" />
+          <Property Type="Decimal" Name="AlınanTutar" Precision="6" Scale="2" />
+          <Property Type="String" Name="CariId" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StokHareket" Relationship="StokTakip2011Model.FK_StokHareket_Fiş1" FromRole="Fiş" ToRole="StokHareket" />
+        </EntityType>
+        <EntityType Name="StokHareket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="FişId" Nullable="false" />
+          <Property Type="Int32" Name="ÜrünId" Nullable="false" />
+          <Property Type="Double" Name="Miktar" Nullable="false" />
+          <Property Type="String" Name="GÇ_Tipi" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="Tarih" Nullable="false" />
+          <Property Type="String" Name="KullanıcıTc" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="AlışFiyat" Nullable="false" Precision="6" Scale="2" />
+          <Property Type="Decimal" Name="SatışFiyat" Nullable="false" Precision="6" Scale="2" />
+          <Property Type="Decimal" Name="ToplamAlışTutar" Nullable="false" Precision="6" Scale="2" />
+          <Property Type="Decimal" Name="ToplamSatışTutar" Nullable="false" Precision="6" Scale="2" />
+          <NavigationProperty Name="Fiş" Relationship="StokTakip2011Model.FK_StokHareket_Fiş1" FromRole="StokHareket" ToRole="Fiş" />
+          <NavigationProperty Name="Ürünler" Relationship="StokTakip2011Model.FK_StokHareket_Ürünler" FromRole="StokHareket" ToRole="Ürünler" />
+        </EntityType>
+        <Association Name="FK_StokHareket_Fiş1">
+          <End Type="StokTakip2011Model.Fiş" Role="Fiş" Multiplicity="1" />
+          <End Type="StokTakip2011Model.StokHareket" Role="StokHareket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fiş">
+              <PropertyRef Name="FişId" />
+            </Principal>
+            <Dependent Role="StokHareket">
+              <PropertyRef Name="FişId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StokHareket_Ürünler">
+          <End Type="StokTakip2011Model.Ürünler" Role="Ürünler" Multiplicity="1" />
+          <End Type="StokTakip2011Model.StokHareket" Role="StokHareket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ürünler">
+              <PropertyRef Name="ÜrünId" />
+            </Principal>
+            <Dependent Role="StokHareket">
+              <PropertyRef Name="ÜrünId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StokTakip2011ModelStoreContainer" CdmEntityContainer="StokTakip2011Entities">
+          <EntitySetMapping Name="Birim"><EntityTypeMapping TypeName="StokTakip2011Model.Birim"><MappingFragment StoreEntitySet="Birim">
+            <ScalarProperty Name="BirimAdı" ColumnName="BirimAdı" />
+            <ScalarProperty Name="id" ColumnName="id" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="FirmaTanım"><EntityTypeMapping TypeName="StokTakip2011Model.FirmaTanım"><MappingFragment StoreEntitySet="FirmaTanım">
+            <ScalarProperty Name="FirmaAdı" ColumnName="FirmaAdı" />
+            <ScalarProperty Name="Id" ColumnName="Id" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Kullanıcı"><EntityTypeMapping TypeName="StokTakip2011Model.Kullanıcı"><MappingFragment StoreEntitySet="Kullanıcı">
+            <ScalarProperty Name="KullanıcıTc" ColumnName="KullanıcıTc" />
+            <ScalarProperty Name="KullanıcıAdı" ColumnName="KullanıcıAdı" />
+            <ScalarProperty Name="Parola" ColumnName="Parola" />
+            <ScalarProperty Name="ParolaHatırlatmaSoru" ColumnName="ParolaHatırlatmaSoru" />
+            <ScalarProperty Name="ParolaCevap" ColumnName="ParolaCevap" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ÜrünKategori"><EntityTypeMapping TypeName="StokTakip2011Model.ÜrünKategori"><MappingFragment StoreEntitySet="ÜrünKategori">
+            <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Ürünler">
+            <EntityTypeMapping TypeName="StokTakip2011Model.Ürünler">
+              <MappingFragment StoreEntitySet="Ürünler">
+                <ScalarProperty Name="Güncelleyen" ColumnName="Güncelleyen" />
+                <ScalarProperty Name="MaxSeviye" ColumnName="MaxSeviye" />
+                <ScalarProperty Name="MinSeviye" ColumnName="MinSeviye" />
+                <ScalarProperty Name="KalanMiktar" ColumnName="KalanMiktar" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+                <ScalarProperty Name="Birim" ColumnName="Birim" />
+                <ScalarProperty Name="FiyatGüncellemeTarihi" ColumnName="FiyatGüncellemeTarihi" />
+                <ScalarProperty Name="SatışFiyat" ColumnName="SatışFiyat" />
+                <ScalarProperty Name="AlışFiyat" ColumnName="AlışFiyat" />
+                <ScalarProperty Name="ÜrünAdı" ColumnName="ÜrünAdı" />
+                <ScalarProperty Name="BarkodNo" ColumnName="BarkodNo" />
+                <ScalarProperty Name="ÜrünId" ColumnName="ÜrünId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fiş">
+            <EntityTypeMapping TypeName="StokTakip2011Model.Fiş">
+              <MappingFragment StoreEntitySet="Fiş">
+                <ScalarProperty Name="CariId" ColumnName="CariId" />
+                <ScalarProperty Name="AlınanTutar" ColumnName="AlınanTutar" />
+                <ScalarProperty Name="ToplamTutar" ColumnName="ToplamTutar" />
+                <ScalarProperty Name="ÖdemeTipi" ColumnName="ÖdemeTipi" />
+                <ScalarProperty Name="FişTarihi" ColumnName="FişTarihi" />
+                <ScalarProperty Name="FişId" ColumnName="FişId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StokHareket">
+            <EntityTypeMapping TypeName="StokTakip2011Model.StokHareket">
+              <MappingFragment StoreEntitySet="StokHareket">
+                <ScalarProperty Name="ToplamSatışTutar" ColumnName="ToplamSatışTutar" />
+                <ScalarProperty Name="ToplamAlışTutar" ColumnName="ToplamAlışTutar" />
+                <ScalarProperty Name="SatışFiyat" ColumnName="SatışFiyat" />
+                <ScalarProperty Name="AlışFiyat" ColumnName="AlışFiyat" />
+                <ScalarProperty Name="KullanıcıTc" ColumnName="KullanıcıTc" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="GÇ_Tipi" ColumnName="GÇ_Tipi" />
+                <ScalarProperty Name="Miktar" ColumnName="Miktar" />
+                <ScalarProperty Name="ÜrünId" ColumnName="ÜrünId" />
+                <ScalarProperty Name="FişId" ColumnName="FişId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="StokModel">
+        <EntityTypeShape EntityType="StokTakip2011Model.Birim" Width="1.5" PointX="0.5" PointY="2.125" Height="0.4" IsExpanded="false" />
+        <EntityTypeShape EntityType="StokTakip2011Model.FirmaTanım" Width="1.5" PointX="0.5" PointY="5.125" Height="1.4033821614583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="StokTakip2011Model.Kullanıcı" Width="1.5" PointX="2.25" PointY="5.125" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="StokTakip2011Model.ÜrünKategori" Width="1.5" PointX="0.5" PointY="2.875" Height="0.4" IsExpanded="false" />
+        <EntityTypeShape EntityType="StokTakip2011Model.Ürünler" Width="1.5" PointX="2.375" PointY="2.375" Height="0.4" IsExpanded="false" />
+        <AssociationConnector Association="StokTakip2011Model.FK_Ürünler_Birim" >
+          <ConnectorPoint PointX="2" PointY="2.45" />
+          <ConnectorPoint PointX="2.375" PointY="2.45" />
+        </AssociationConnector>
+        <AssociationConnector Association="StokTakip2011Model.FK_Ürünler_ÜrünKategori" >
+          <ConnectorPoint PointX="2" PointY="2.875" />
+          <ConnectorPoint PointX="2.3750000000000013" PointY="2.775" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="StokTakip2011Model.Fiş" Width="1.5" PointX="7.125" PointY="0.625" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="StokTakip2011Model.StokHareket" Width="1.5" PointX="4.625" PointY="0.75" Height="3.5186979166666674" />
+        <AssociationConnector Association="StokTakip2011Model.FK_StokHareket_Fiş1" >
+          <ConnectorPoint PointX="7.125" PointY="1.8699446614583337" />
+          <ConnectorPoint PointX="6.125" PointY="1.8699446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="StokTakip2011Model.FK_StokHareket_Ürünler" >
+          <ConnectorPoint PointX="3.875" PointY="2.575" />
+          <ConnectorPoint PointX="4.625" PointY="2.575" />
+        </AssociationConnector>
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
